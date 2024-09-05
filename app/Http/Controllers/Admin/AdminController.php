@@ -59,8 +59,7 @@ class AdminController extends Controller
     public function invite($token)
     {
         $user = User::query()->where('invite_token', $token)->get()->first();
-        if ($user && $user->{'invite_token'} == $token && $user->{'invited'} == 0) {
-            $user->update(['invited' => true]);
+        if ($user && $user->{'invite_token'} == $token) {
             return view('user.invited_user_login', compact('token'));
         }
         abort(404);
@@ -80,6 +79,7 @@ class AdminController extends Controller
 
         if ($user && Hash::check($request->input('password'), $user->password)) {
             Auth::login($user);
+            $user->update(['invite_token' => null]);
             return redirect()->intended('dashboard')->with('success', 'Login successful!');
         }
 
