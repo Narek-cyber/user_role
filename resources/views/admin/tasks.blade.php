@@ -57,6 +57,7 @@
                         <td>
                             <a
                                 href="{{ route('admin.assign', ['id' => $task->id]) }}"
+                                style="color: blue;"
                             >
                                 Assign
                             </a>
@@ -67,7 +68,7 @@
                         colspan="7"
                         class="text-center fw-bold"
                     >
-                        No users yet
+                        No tasks yet
                     </td>
                 @endforelse
                 </tbody>
