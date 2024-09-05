@@ -18,8 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['middleware' => ['auth', 'role:user']], function() {
+Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('admin/users', [AdminController::class, 'index'])->name('admin.users');
+    Route::post('admin/invite/{id}', [AdminController::class, 'inviteUser'])->name('admin.invite');
 });
+
+
+Route::get('invite/{token}', [AdminController::class, 'invite'])->name('user.invite');
 
 require __DIR__.'/auth.php';

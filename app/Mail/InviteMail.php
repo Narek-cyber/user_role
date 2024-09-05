@@ -16,9 +16,9 @@ class InviteMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($invite_link)
     {
-        //
+        $this->{'invite_link'} = $invite_link;
     }
 
     /**
@@ -37,7 +37,10 @@ class InviteMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.invite',
+            with: [
+                'invite_link' => $this->{'invite_link'},
+            ],
         );
     }
 

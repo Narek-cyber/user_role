@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'role',
         'invite_token',
+        'invite_link',
+        'invited',
     ];
 
     /**

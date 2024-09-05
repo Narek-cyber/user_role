@@ -17,6 +17,8 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->string('invite_token', 64)->nullable();
+            $table->string('invite_link')->nullable();
+            $table->boolean('invited')->default(false);
         });
     }
 
@@ -27,11 +29,13 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
+                'invited',
+                'invite_link',
                 'invite_token',
                 'role',
                 'date_of_birth',
                 'phone',
-                'lastname'
+                'lastname',
             ]);
         });
     }

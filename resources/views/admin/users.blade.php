@@ -28,9 +28,18 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->date_of_birth}}</td>
                     <td>
-                        <button class="btn btn-primary btn-sm">
-                            Invite
-                        </button>
+                        <form
+                            action="{{ route('admin.invite', ['id' => $user->id]) }}"
+                            method="POST"
+                        >
+                            @csrf
+                            <button
+                                class="btn btn-primary btn-sm"
+                                type="submit"
+                            >
+                                Invite
+                            </button>
+                        </form>
                     </td>
                 @empty
                     <td
