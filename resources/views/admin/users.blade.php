@@ -21,26 +21,28 @@
                 </thead>
                 <tbody>
                 @forelse($users as $key => $user)
-                    <td>{{$key + 1}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->lastname}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone}}</td>
-                    <td>{{$user->date_of_birth}}</td>
-                    <td>
-                        <form
-                            action="{{ route('admin.invite', ['id' => $user->id]) }}"
-                            method="POST"
-                        >
-                            @csrf
-                            <button
-                                class="btn btn-primary btn-sm"
-                                type="submit"
+                    <tr>
+                        <td>{{$key + 1}}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->lastname}}</td>
+                        <td>{{$user->email}}</td>
+                        <td>{{$user->phone}}</td>
+                        <td>{{$user->date_of_birth}}</td>
+                        <td>
+                            <form
+                                action="{{ route('admin.invite', ['id' => $user->id]) }}"
+                                method="POST"
                             >
-                                Invite
-                            </button>
-                        </form>
-                    </td>
+                                @csrf
+                                <button
+                                    class="btn btn-primary btn-sm"
+                                    type="submit"
+                                >
+                                    Invite
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                 @empty
                     <td
                         colspan="7"

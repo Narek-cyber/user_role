@@ -22,8 +22,9 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::get('admin/users', [AdminController::class, 'index'])->name('admin.users');
     Route::get('admin/tasks', [TaskController::class, 'index'])->name('admin.tasks.index');
-    Route::post('admin/tasks/store', [TaskController::class, 'store'])->name('admin.tasks.store');
+    Route::post('admin/task/store', [TaskController::class, 'store'])->name('admin.task.store');
     Route::post('admin/invite/{id}', [AdminController::class, 'inviteUser'])->name('admin.invite');
+    Route::get('admin/assign/{id}', [TaskController::class, 'assignUser'])->name('admin.assign');
 });
 
 Route::get('invite/{token}', [AdminController::class, 'invite'])->name('user.invite');

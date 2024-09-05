@@ -4,16 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    /**
+     * @return View|Factory|Application
+     */
+    public function index(): View|Factory|Application
     {
-        return view('admin.tasks');
+        $tasks = Task::query()
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+        return view('admin.tasks', compact('tasks'));
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'title' => ['required'],
@@ -27,6 +43,12 @@ class TaskController extends Controller
             'description' => $request->input('title'),
         ]);
 
-        return redirect()->back()->with('success', 'Task created successfully');
+        return redirect()->route('admin.tasks.index')->with('success', 'Task created successfully');
+    }
+
+    public function assignUser()
+    {
+        $users = User::query()->where('role', 'user')->where('invited', true)->get();
+        return view('admin.assign');
     }
 }
