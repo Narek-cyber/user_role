@@ -16,13 +16,19 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.*')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                </div>
+                @if(auth()->user()->{'role'} == 'admin')
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.tasks.index')" :active="request()->routeIs('admin.tasks.index')">
+                            {{ __('Tasks') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
