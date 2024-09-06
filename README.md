@@ -67,6 +67,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## To launch the Frontend you need to do the following steps
 
-Step1 - npm run start
+Step1 - npm install
 
 Step2 - npm run dev
