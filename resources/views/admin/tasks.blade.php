@@ -67,6 +67,12 @@
                             >
                                 Status
                             </a>
+                            <a
+                                href="{{ route('admin.task.edit', ['id' => $task->id]) }}"
+                                style="color: midnightblue;"
+                            >
+                                Edit
+                            </a>
                         </td>
                     </tr>
                 @empty

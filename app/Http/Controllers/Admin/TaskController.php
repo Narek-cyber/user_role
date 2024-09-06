@@ -104,4 +104,28 @@ class TaskController extends Controller
 
         return redirect()->route('admin.tasks.index')->with('success', 'Task status updated successfully');
     }
+
+    /**
+     * @param $id
+     * @return View|Factory|Application
+     */
+    public function edit($id): View|Factory|Application
+    {
+        $task = Task::query()->findOrFail($id);
+        return view('admin.task-edit', compact('task'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request, $id): RedirectResponse
+    {
+        Task::query()->findOrFail($id)->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+        return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully');
+    }
 }
