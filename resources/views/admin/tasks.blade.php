@@ -61,6 +61,12 @@
                             >
                                 Assign
                             </a>
+                            <a
+                                href="{{ route('admin.task.status', ['id' => $task->id]) }}"
+                                style="color: darkviolet;"
+                            >
+                                Status
+                            </a>
                         </td>
                     </tr>
                 @empty

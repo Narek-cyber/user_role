@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::post('admin/invite/{id}', [AdminController::class, 'inviteUser'])->name('admin.invite');
     Route::get('admin/assign/{id}', [TaskController::class, 'assignUser'])->name('admin.assign');
     Route::post('admin/assign/user/{id}', [TaskController::class, 'assignTaskToUser'])->name('admin.assign.task');
+    Route::get('admin/task/status/{id}', [TaskController::class, 'taskStatus'])->name('admin.task.status');
+    Route::put('admin/task/status/{id}', [TaskController::class, 'taskStatusUpdate'])->name('admin.task.status.update');
 });
 
 Route::get('invite/{token}', [AdminController::class, 'invite'])->name('user.invite');

@@ -64,10 +64,42 @@ class TaskController extends Controller
      */
     public function assignTaskToUser(Request $request, $id): RedirectResponse
     {
+        $request->validate([
+            'assigned_to' => ['nullable', 'exists:users,id'],
+        ]);
         $task = Task::query()->findOrFail($id);
         $task->update([
             'assigned_to' => $request->input('assign-task')
         ]);
         return redirect()->route('admin.tasks.index')->with('success', 'Task assigned successfully');
+    }
+
+    /**
+     * @param $id
+     * @return View|Factory|Application
+     */
+    public function taskStatus($id): View|Factory|Application
+    {
+        $task = Task::query()->findOrFail($id);
+        $task_statuses = Task::getStatuses();
+        return view('admin.task-status', compact('task', 'task_statuses'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function taskStatusUpdate(Request $request, $id): RedirectResponse
+    {
+        $request->validate([
+            'status' => 'required|in:' . implode(',', array_keys(Task::getStatuses())),
+        ]);
+
+        Task::query()->findOrFail($id)->update([
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('admin.tasks.index')->with('success', 'Task status updated successfully');
     }
 }

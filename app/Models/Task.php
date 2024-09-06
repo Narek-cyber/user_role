@@ -20,6 +20,21 @@ class Task extends Model
         'status',
     ];
 
+    const STATUS_NEW = 'new';
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_REVIEW = 'review';
+    const STATUS_DONE = 'done';
+
+    public static function getStatuses(): array
+    {
+        return [
+            self::STATUS_NEW => 'New',
+            self::STATUS_IN_PROGRESS => 'In Progress',
+            self::STATUS_REVIEW => 'Review',
+            self::STATUS_DONE => 'Done',
+        ];
+    }
+
     /**
      * @return BelongsTo
      */
