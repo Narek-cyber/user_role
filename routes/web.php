@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\TaskController as UserTaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +29,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::put('admin/assign/user/{id}', [TaskController::class, 'assignTaskToUser'])->name('admin.assign.task');
     Route::get('admin/task/status/{id}', [TaskController::class, 'taskStatus'])->name('admin.task.status');
     Route::put('admin/task/status/{id}', [TaskController::class, 'taskStatusUpdate'])->name('admin.task.status.update');
+});
+
+Route::group(['middleware' => ['auth', 'role:user']], function() {
+    Route::get('user/tasks', [UserTaskController::class, 'index'])->name('user.tasks.index');
+    Route::get('user/task/{id}', [UserTaskController::class, 'show'])->name('user.task.show');
+    Route::get('user/task/status/{id}', [UserTaskController::class, 'taskStatus'])->name('user.task.status');
+    Route::put('user/task/status/{id}', [UserTaskController::class, 'taskStatusUpdate'])->name('user.task.status.update');
 });
 
 Route::get('invite/{token}', [AdminController::class, 'invite'])->name('user.invite');
