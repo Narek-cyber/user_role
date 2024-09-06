@@ -12,6 +12,7 @@
                 action="{{ route('admin.assign.task', ['id' => $task->id]) }}"
             >
                 @csrf
+                @method('PUT')
                 <div class="mb-3">
                     <select
                         class="form-select"
