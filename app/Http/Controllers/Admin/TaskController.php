@@ -46,19 +46,28 @@ class TaskController extends Controller
         return redirect()->route('admin.tasks.index')->with('success', 'Task created successfully');
     }
 
-    public function assignUser($id)
+    /**
+     * @param $id
+     * @return View|Factory|Application
+     */
+    public function assignUser($id): View|Factory|Application
     {
         $users = User::query()->where('role', 'user')->where('invited', true)->get();
-        $task = Task::query()->first();
+        $task = Task::query()->findOrFail($id);
         return view('admin.assign', compact('users', 'task'));
     }
 
-    public function assignTaskToUser(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function assignTaskToUser(Request $request, $id): RedirectResponse
     {
         $task = Task::query()->findOrFail($id);
         $task->update([
             'assigned_to' => $request->input('assign-task')
         ]);
-        return redirect()->back();
+        return redirect()->route('admin.tasks.index')->with('success', 'Task assigned successfully');
     }
 }
