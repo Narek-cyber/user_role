@@ -81,7 +81,9 @@ class TaskController extends Controller
     public function taskStatus($id): View|Factory|Application
     {
         $task = Task::query()->findOrFail($id);
-        $task_statuses = Task::getStatuses();
+        $task_statuses = array_filter(Task::getStatuses(), function ($key) {
+            return in_array($key, [Task::STATUS_NEW, Task::STATUS_DONE]);
+        }, ARRAY_FILTER_USE_KEY);
         return view('admin.task-status', compact('task', 'task_statuses'));
     }
 

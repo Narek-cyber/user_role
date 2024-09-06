@@ -30,7 +30,7 @@ class TaskController extends Controller
     {
         $task = Task::query()->findOrFail($id);
         $task_statuses = array_filter(Task::getStatuses(), function ($key) {
-            return in_array($key, [Task::STATUS_NEW, Task::STATUS_IN_PROGRESS, Task::STATUS_REVIEW]);
+            return in_array($key, [Task::STATUS_IN_PROGRESS, Task::STATUS_REVIEW]);
         }, ARRAY_FILTER_USE_KEY);
         return view('user.task-status', compact('task', 'task_statuses'));
     }
