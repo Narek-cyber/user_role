@@ -73,6 +73,19 @@
                             >
                                 Edit
                             </a>
+                            <form
+                                action="{{ route('admin.task.destroy', ['id' => $task->id]) }}"
+                                method="POST"
+                            >
+                                @csrf
+                                @method('PUT')
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure?')"
+                                >
+                                    Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @empty

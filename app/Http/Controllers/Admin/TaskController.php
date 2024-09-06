@@ -128,4 +128,14 @@ class TaskController extends Controller
         ]);
         return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully');
     }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function delete($id): RedirectResponse
+    {
+        Task::query()->findOrFail($id)->delete();
+        return redirect()->route('admin.tasks.index')->with('success', 'Task deleted successfully');
+    }
 }
